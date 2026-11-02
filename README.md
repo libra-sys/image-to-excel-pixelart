@@ -29,23 +29,30 @@ pip install pillow openpyxl
 
 ## 使用方法
 
+脚本需要图片路径参数，不能直接无参数运行。
+
 ```bash
-python image_to_excel_pixelart.py
+python image_to_excel_pixelart.py input.png -o output.xlsx --max_size 100
 ```
 
-运行后按提示输入：
+如需交互输入，仍需提供位置参数：
 
-1. **图片路径** - 要转换的图片文件路径
-2. **输出 Excel 路径** - 生成文件的保存路径（默认 `output.xlsx`）
-3. **像素大小** - 每个像素块的大小（默认 20，值越大像素块越大）
-4. **最大尺寸** - 图片最大边长（默认 100，防止文件过大）
+```bash
+python image_to_excel_pixelart.py input.png --interactive
+```
+
+用 `python image_to_excel_pixelart.py --help` 查看选项。
 
 ## 参数建议
 
-| 参数 | 推荐值 | 说明 |
+| 参数 | 默认值 | 说明 |
 |------|--------|------|
-| 像素大小 | 10-50 | 值越大文件越大 |
-| 最大尺寸 | 50-200 | 防止 Excel 性能问题 |
+| `--pixel_size` | 10 | 控制单元格显示尺寸，不增加图片采样细节 |
+| `--max_size` | 200 | 限制图片最大边长；建议先用 50–100，避免工作簿过大 |
+| `--smooth` | 关闭 | 启用平滑处理 |
+| `--dpi` | 300 | 当前脚本接收该参数，但没有在输出逻辑中使用，不影响生成效果 |
+
+最大边长决定输出单元格数量，单元格显示尺寸主要影响外观。
 
 ## 注意事项
 
